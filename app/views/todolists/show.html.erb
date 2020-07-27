@@ -1,7 +1,7 @@
 <h2>タイトル</h2>
 <p><%= @list.title %></p>
 <h2>本文</h2>
-<p><%= @list.body %></p>
+<p><%= safe_join(@list.body.split("\n"), tag(:br)) %></p>
 <h2>画像</h2>
 <%= attachment_image_tag @list, :image, :fill, 300, 300, format: 'jpeg' %>
 

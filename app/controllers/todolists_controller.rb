@@ -6,23 +6,23 @@ class TodolistsController < ApplicationController
 
   def create
 
-  	list = List.new(list_params)
+  	@list = List.new(list_params)
 
-  	list.save
-
-  	redirect_to todolist_path(list.id)
-
+  	if @list.save
+      redirect_to todolist_path(@list)
+    else
+      render 'new'
+    end
   end
 
   def index
-    puts "作成したキー #{ENV['SECRET_KEY']}"
   	@lists = List.all
 
   end
 
   def show
 
- 	@list = List.find(params[:id])
+ 	  @list = List.find(params[:id])
 
   end
 
