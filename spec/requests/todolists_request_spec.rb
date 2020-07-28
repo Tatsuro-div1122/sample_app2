@@ -49,4 +49,17 @@ RSpec.describe "Todoloists", type: :request do
       end
     end
   end
+
+  describe '編集ページ' do
+    context '投稿編集ページが正しく表示される' do
+      before do
+        @list = List.new(title:"タイトル", body:"本文です")
+        @list.save
+        get edit_todolist_path(@list)
+      end
+      it 'リクエストは200 OKとなること' do
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
