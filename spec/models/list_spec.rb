@@ -21,6 +21,8 @@ RSpec.describe List, type: :model do
     end
     it "titleが入力されていないので保存されない" do
       expect(@list).to be_invalid
+    end
+    it "未入力のエラーメッセージが表示される" do
       expect(@list.errors[:title]).to include("can't be blank")
     end
   end
@@ -33,9 +35,12 @@ RSpec.describe List, type: :model do
     end
     it "bodyが入力されていないので保存されない" do
       expect(@list).to be_invalid
+    end
+    it "未入力のエラーメッセージが表示される" do
       expect(@list.errors[:body]).to include("can't be blank")
     end
   end
+
   context "データが正しく更新される" do
     before do
       @list = List.new(title:"タイトル", body:"本文です")
@@ -43,10 +48,10 @@ RSpec.describe List, type: :model do
       @list.update(title:"title", body:"body")
     end
     it "データが全て入力されているので更新される" do
-      expect(@list). to be_valid
+      expect(@list).to be_valid
     end
   end
-  context "データが正しく更新されない"
+  context "データが正しく更新されない" do
     before do
       @list = List.new(title:"タイトル", body:"本文です")
       @list.save
@@ -54,6 +59,22 @@ RSpec.describe List, type: :model do
     end
     it "データが全て入力されていないので更新されない" do
       expect(@list). to be_invalid
+    end
+    it "未入力のエラーメッセージが表示される" do
+      expect(@list.errors[:title]).to include("can't be blank")
+    end
+  end
+  context "データが正しく更新されない" do
+    before do
+      @list = List.new(title:"タイトル", body:"本文です")
+      @list.save
+      @list.update(title:"title", body:"")
+    end
+    it "データが全て入力されていないので更新されない" do
+      expect(@list).to be_invalid
+    end
+    it "未入力のエラーメッセージが表示される" do
+      expect(@list.errors[:body]).to include("can't be blank")
     end
   end
 end
