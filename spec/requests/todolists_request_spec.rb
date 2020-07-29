@@ -39,10 +39,9 @@ RSpec.describe "Todoloists", type: :request do
 
   describe '投稿詳細ページ' do
     context '投稿詳細ページが正しく表示される' do
+      let(:list) {List.create(title:"タイトル", body:"本文です")}
       before do
-        @list = List.new(title:"タイトル", body:"本文です")
-        @list.save
-        get todolist_path(@list.id)
+        get todolist_path(list)
       end
       it 'リクエストは200 OKとなること' do
         expect(response.status).to eq 200
@@ -52,10 +51,9 @@ RSpec.describe "Todoloists", type: :request do
 
   describe '編集ページ' do
     context '投稿編集ページが正しく表示される' do
+      let(:list) {List.create(title:"タイトル", body:"本文です")}
       before do
-        @list = List.new(title:"タイトル", body:"本文です")
-        @list.save
-        get edit_todolist_path(@list)
+        get edit_todolist_path(list)
       end
       it 'リクエストは200 OKとなること' do
         expect(response.status).to eq 200
