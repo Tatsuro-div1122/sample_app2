@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe List, type: :model do
   context "データが正しく保存される" do
-    let(:list) {List.create(title:"タイトル", body:"本文です")}
+    let!(:list) {List.create(title:"タイトル", body:"本文です")}
     it "全て入力してあるので保存される" do
-      expect(list).to be_valid
+      expect(List.first).to eq list
     end
   end
   context "データが正しく保存されない" do
@@ -27,7 +27,7 @@ RSpec.describe List, type: :model do
   end
 
   context "データが正しく更新される" do
-    let(:list) {List.create(title:"タイトル", body:"本文です")}
+    let(:list) {List.new(title:"タイトル", body:"本文です")}
     before do
       list.update(title:"title", body:"body")
     end
